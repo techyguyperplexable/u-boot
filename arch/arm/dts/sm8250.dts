@@ -3,8 +3,12 @@
 /dts-v1/;
 
 #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/input/linux-event-codes.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
 #include "sm8250-soc.dts"
-#include "pm8150.dtsi"
+// #include "pm8150.dtsi"
 
 / {
 	chosen {
