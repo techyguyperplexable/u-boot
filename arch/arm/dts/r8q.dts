@@ -2,7 +2,7 @@
 
 /dts-v1/;
 
-#include "sm8250-samsung-common.dtsi"
+#include "sm8250.dts"
 
 / {
  model = "Samsung Galaxy S20 FE";
