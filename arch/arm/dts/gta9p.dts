@@ -1,0 +1,166 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Samsung Galaxy Tab A9+ (gta9p)
+ */
+
+/dts-v1/;
+
+#include "sm6375.dts"
+
+/ {
+	model = "Samsung Galaxy Tab A9+ (gta9p)";
+	compatible = "samsung,gta9p", "qcom,blair", "qcom,sm6375";
+	qcom,msm-id = <0x1fb 0x10000 0x242 0x10000>;
+	qcom,board-id = <0x1000b 0x0>;
+
+	aliases {
+		serial0 = &uart_console;
+		sdhc1 = &sdhc_1;
+		sdhc2 = &sdhc_2;
+		ufshc1 = &ufs_hc;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	memory@80000000 {
+		device_type = "memory";
+		reg = <0x0 0x80000000 0x0 0x0>;
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		framebuffer_region: framebuffer@85200000 {
+			reg = <0x0 0x85200000 0x0 0xc00000>;
+			no-map;
+		};
+
+		ramoops@d0000000 {
+			compatible = "ramoops";
+			reg = <0x0 0xd0000000 0x0 0x200000>;
+			record-size = <0x20000>;
+			console-size = <0x20000>;
+		};
+	};
+
+	framebuffer: framebuffer@85200000 {
+		compatible = "simple-framebuffer";
+		reg = <0x0 0x85200000 0x0 0xc00000>;
+		width = <1920>;
+		height = <1200>;
+		stride = <7680>;
+		format = "a8r8g8b8";
+		clocks = <&gcc 0>;
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		
+		vol_up {
+			label = "volume_up";
+			gpios = <&pmr735a_gpios 1 1>;
+			linux,code = <115>;
+		};
+	};
+};
+
+/* Enable SoC Peripherals used by this board */
+
+&uart_console {
+	status = "okay";
+	bootph-all;
+};
+
+&gcc {
+	bootph-all;
+};
+
+&tlmm {
+	bootph-all;
+
+	sdc2_on_state: sdc2-on {
+		clk {
+			pins = "sdc2_clk";
+			drive-strength = <16>;
+			bias-disable;
+		};
+		cmd {
+			pins = "sdc2_cmd";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+		data {
+			pins = "sdc2_data";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+	};
+};
+
+&usb_1 {
+	status = "okay";
+	bootph-all;
+};
+
+&usb_1_dwc3 {
+	dr_mode = "peripheral";
+	bootph-all;
+};
+
+&ufs_hc {
+	status = "okay";
+	bootph-all;
+};
+
+&sdhc_2 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&sdc2_on_state>;
+	bootph-all;
+};
+
+&spmi_bus {
+	pmic0: pmic@0 {
+		compatible = "qcom,spmi-pmic";
+		reg = <0x0>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		pon@800 {
+			compatible = "qcom,pm8916-pon";
+			reg = <0x800>;
+			mode-bootloader = <0x2>;
+			reason-bootloader = <0x2>;
+
+			pwrkey {
+				compatible = "qcom,pm8941-pwrkey";
+				interrupts = <0x0 0x8 0x0>;
+				linux,code = <116>;
+			};
+
+			vol_down {
+				compatible = "qcom,pm8941-resin";
+				interrupts = <0x0 0x8 0x1>;
+				linux,code = <114>;
+			};
+		};
+	};
+
+	pmic4: pmic@4 {
+		compatible = "qcom,spmi-pmic";
+		reg = <0x4>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		pmr735a_gpios: pinctrl@8800 {
+			compatible = "qcom,spmi-gpio";
+			reg = <0x8800>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+	};
+};
