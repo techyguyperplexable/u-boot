@@ -45,4 +45,9 @@ config SYS_CONFIG_NAME
 	  Based on this option include/configs/<CONFIG_SYS_CONFIG_NAME>.h header
 	  will be used for board configuration.
 
+config ARCH_SM6375
+	bool "Qualcomm SM6375"
+	help
+	  Support for Qualcomm SM6375 SoC (Snapdragon 695)
+
 endif
