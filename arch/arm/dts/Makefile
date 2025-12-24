@@ -5,6 +5,7 @@ dtb-$(CONFIG_TARGET_TAURUS) += at91sam9g20-taurus.dtb
 dtb-$(CONFIG_TARGET_CORVUS) += at91sam9g45-corvus.dtb
 dtb-$(CONFIG_TARGET_GURNARD) += at91sam9g45-gurnard.dtb
 dtb-$(CONFIG_ARCH_SM8250) += r8q.dtb
+dtb-$(CONFIG_ARCH_SM6375) += gta9p.dtb
 dtb-$(CONFIG_TARGET_SMDKC100) += s5pc1xx-smdkc100.dtb
 dtb-$(CONFIG_TARGET_S5P_GONI) += s5pc1xx-goni.dtb
 dtb-$(CONFIG_ARCH_EXYNOS4) += exynos4210-origen.dtb \
