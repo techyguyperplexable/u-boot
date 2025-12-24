@@ -462,6 +462,7 @@
 			lanes-per-direction = <1>;
 			resets = <&gcc 13>;
 			reset-names = "rst";
+			power-domains = <&gcc 1>;
 			status = "okay";
 		};
 
@@ -469,6 +470,46 @@
 			compatible = "qcom,sm6375-qmp-ufs-phy";
 			reg = <0x0 0x4807000 0x0 0xddc>;
 			#phy-cells = <0>;
+			status = "okay";
+		};
+
+		usb: usb@4e00000 {
+			compatible = "qcom,dwc3";
+			reg = <0x0 0x4e00000 0x0 0x100000>;
+			#address-cells = <2>;
+			#size-cells = <2>;
+			ranges;
+			clocks = <&gcc 168>,
+				 <&gcc 79>,
+				 <&gcc 170>,
+				 <&gcc 173>;
+			clock-names = "core", "iface", "mock_utmi", "sleep";
+			resets = <&gcc 14>;
+			reset-names = "core";
+			power-domains = <&gcc 0>;
+			status = "okay";
+
+			usb_dwc3: dwc3@4e00000 {
+				compatible = "snps,dwc3";
+				reg = <0x0 0x4e00000 0x0 0xcd00>;
+				interrupts = <0x0 0xff 0x4>;
+				phys = <&usb_hsphy>;
+				phy-names = "usb2-phy";
+				maximum-speed = "high-speed";
+				dr_mode = "peripheral";
+				snps,dis_u2_susphy_quirk;
+				snps,dis_enblslpm_quirk;
+			};
+		};
+
+		usb_hsphy: phy@162b000 {
+			compatible = "qcom,sm6375-usb-hs-phy", "qcom,usb-snps-hs-7nm-phy";
+			reg = <0x0 0x162b000 0x0 0x400>;
+			#phy-cells = <0>;
+			clocks = <&gcc 18>;
+			clock-names = "ref";
+			resets = <&gcc 9>;
+			reset-names = "phy";
 			status = "okay";
 		};
 	};
