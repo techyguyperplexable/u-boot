@@ -14,6 +14,7 @@
 #include <dm.h>
 #include <dm/device_compat.h>
 #include <generic-phy.h>
+#include <power-domain.h>
 #include <ufs.h>
 #include <asm/gpio.h>
 
@@ -626,6 +627,18 @@ static int ufs_qcom_probe(struct udevice *dev)
 {
 	struct ufs_qcom_priv *priv = dev_get_priv(dev);
 	int ret;
+
+	/* Enable power domain (GDSC) */
+	ret = power_domain_get(dev, &priv->pwr_domain);
+	if (ret) {
+		dev_dbg(dev, "failed to get power domain\n");
+	} else {
+		ret = power_domain_on(&priv->pwr_domain);
+		if (ret) {
+			dev_err(dev, "failed to enable power domain\n");
+			return ret;
+		}
+	}
 
 	/* get resets */
 	ret = reset_get_by_name(dev, "rst", &priv->core_reset);

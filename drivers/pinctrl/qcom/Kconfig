@@ -102,6 +102,13 @@ config PINCTRL_QCOM_SM6350
 	help
 	  Say Y here to enable support for pinctrl on the Snapdragon SM6350 SoC,
 
+config PINCTRL_QCOM_SM6375
+	bool "Qualcomm SM6375 Pinctrl"
+	select PINCTRL_QCOM
+	help
+	  Say Y here to enable support for pinctrl on the Snapdragon SM6375 SoC,
+	  as well as the associated GPIO driver.
+
 config PINCTRL_QCOM_SM7150
 	bool "Qualcomm SM7150 GCC"
 	select PINCTRL_QCOM

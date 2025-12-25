@@ -142,6 +142,9 @@ struct ufs_qcom_priv {
 	struct gpio_desc reset;
 
 	bool is_dev_ref_clk_enabled;
+
+	/* Power domain */
+	struct power_domain pwr_domain;
 };
 
 #endif /* UFS_QCOM_H_ */
