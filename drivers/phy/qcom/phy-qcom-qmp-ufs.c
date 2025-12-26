@@ -1048,25 +1048,25 @@ static const struct qmp_ufs_cfg sm8150_ufsphy_cfg = {
 	.no_pcs_sw_reset	= false,
 };
 
-/* SM6375/Blair uses v4 regs with 1 lane, sm6115 tables */
+/* SM6375/Blair uses v4 regs with 1 lane - sm8150 tables match stock Blair v4 */
 static const struct qmp_ufs_cfg sm6375_ufsphy_cfg = {
 	.lanes			= 1,
 
 	.offsets		= &qmp_ufs_offsets,
 
 	.tbls = {
-		.serdes		= sm6115_ufsphy_serdes,
-		.serdes_num	= ARRAY_SIZE(sm6115_ufsphy_serdes),
-		.tx		= sm6115_ufsphy_tx,
-		.tx_num		= ARRAY_SIZE(sm6115_ufsphy_tx),
-		.rx		= sm6115_ufsphy_rx,
-		.rx_num		= ARRAY_SIZE(sm6115_ufsphy_rx),
-		.pcs		= sm6115_ufsphy_pcs,
-		.pcs_num	= ARRAY_SIZE(sm6115_ufsphy_pcs),
+		.serdes		= sm8150_ufsphy_serdes,
+		.serdes_num	= ARRAY_SIZE(sm8150_ufsphy_serdes),
+		.tx		= sm8150_ufsphy_tx,
+		.tx_num		= ARRAY_SIZE(sm8150_ufsphy_tx),
+		.rx		= sm8150_ufsphy_rx,
+		.rx_num		= ARRAY_SIZE(sm8150_ufsphy_rx),
+		.pcs		= sm8150_ufsphy_pcs,
+		.pcs_num	= ARRAY_SIZE(sm8150_ufsphy_pcs),
 	},
 	.tbls_hs_b = {
-		.serdes		= sm6115_ufsphy_hs_b_serdes,
-		.serdes_num	= ARRAY_SIZE(sm6115_ufsphy_hs_b_serdes),
+		.serdes		= sm8150_ufsphy_hs_b_serdes,
+		.serdes_num	= ARRAY_SIZE(sm8150_ufsphy_hs_b_serdes),
 	},
 	.clk_list		= sdm845_ufs_phy_clk_l,
 	.num_clks		= ARRAY_SIZE(sdm845_ufs_phy_clk_l),
@@ -1076,7 +1076,7 @@ static const struct qmp_ufs_cfg sm6375_ufsphy_cfg = {
 	.num_resets		= ARRAY_SIZE(qmp_ufs_reset_l),
 	.regs			= ufsphy_v4_regs_layout,
 
-	.no_pcs_sw_reset	= true,
+	.no_pcs_sw_reset	= false,
 };
 
 static const struct qmp_ufs_cfg sm7150_ufsphy_cfg = {
