@@ -510,6 +510,7 @@
 			resets = <&gcc 14>;
 			reset-names = "core";
 			power-domains = <&gcc 0>;
+			qcom,select-utmi-as-pipe-clk;
 			status = "okay";
 
 			usb_dwc3: dwc3@4e00000 {
@@ -526,10 +527,10 @@
 		};
 
 		usb_hsphy: phy@162b000 {
-			compatible = "qcom,sm6375-usb-hs-phy", "qcom,usb-snps-hs-7nm-phy";
+			compatible = "qcom,usb-snps-hs-7nm-phy";
 			reg = <0x0 0x162b000 0x0 0x400>;
 			#phy-cells = <0>;
-			clocks = <&gcc 18>;
+			clocks = <&xo_board>;
 			clock-names = "ref";
 			resets = <&gcc 9>;
 			reset-names = "phy";
